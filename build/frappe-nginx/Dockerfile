@@ -4,8 +4,11 @@
 # by Website Manager role in Frappe Framework
 FROM python:3.7-slim-buster
 
-ARG GIT_REPO=https://github.com/leam-tech/frappe
+ARG GIT_REPO=github.com/leam-tech/frappe
 ARG GIT_BRANCH=version-13-fixes
+
+# GITHUB TOKEN SETUP
+ARG GH_ACCESS_TOKEN
 
 ENV NVM_DIR=/root/.nvm
 ENV NODE_VERSION=14.17.0
@@ -24,9 +27,9 @@ WORKDIR /home/frappe/frappe-bench
 RUN mkdir -p /home/frappe/frappe-bench/sites \
     && echo "frappe" > /home/frappe/frappe-bench/sites/apps.txt
 
-RUN mkdir -p apps sites/assets/css  \
+RUN --mount=type=secret,id=GH_ACCESS_TOKEN mkdir -p apps sites/assets/css  \
     && cd apps \
-    && git clone --depth 1 ${GIT_REPO} --branch $GIT_BRANCH
+    && git clone --depth 1 https://${GH_ACCESS_TOKEN}@${GIT_REPO} --branch $GIT_BRANCH
 
 RUN cd /home/frappe/frappe-bench/apps/frappe \
     && yarn \

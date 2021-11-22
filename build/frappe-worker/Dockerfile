@@ -6,6 +6,10 @@ RUN useradd -ms /bin/bash frappe
 ARG GIT_REPO=https://github.com/leam-tech/frappe
 ARG GIT_BRANCH=version-13-fixes
 ARG ARCH=amd64
+
+# GITHUB TOKEN SETUP
+ARG GH_ACCESS_TOKEN
+
 ENV PYTHONUNBUFFERED 1
 ENV NVM_DIR=/home/frappe/.nvm
 ENV NODE_VERSION=14.17.0
@@ -65,12 +69,12 @@ RUN bash install.sh \
 RUN mkdir -p apps logs commands sites /home/frappe/backups
 
 # Setup python environment
-RUN python -m venv env \
+RUN --mount=type=secret,id=GH_ACCESS_TOKEN python -m venv env \
     && . env/bin/activate \
     && pip3 install --upgrade pip \
     && pip3 install gevent \
     && cd apps \
-    && git clone --depth 1 -o upstream ${GIT_REPO} --branch ${GIT_BRANCH} \
+    && git clone --depth 1 -o upstream https://${GH_ACCESS_TOKEN}@${GIT_REPO} --branch ${GIT_BRANCH} \
     && pip3 install --no-cache-dir -e /home/frappe/frappe-bench/apps/frappe
 
 # Copy scripts and templates
