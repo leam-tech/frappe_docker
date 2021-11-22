@@ -4,8 +4,8 @@ FROM python:${PYTHON_VERSION}-slim-bullseye
 # Add non root user without password
 RUN useradd -ms /bin/bash frappe
 
-ARG GIT_REPO=https://github.com/frappe/frappe
-ARG GIT_BRANCH=develop
+ARG GIT_REPO=github.com/leam-tech/frappe
+ARG GIT_BRANCH=version-13-fixes
 
 ARG ARCH=amd64
 
@@ -93,7 +93,7 @@ RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | 
     && rm -rf ${NVM_DIR}/.cache
 
 # Install Frappe
-RUN git clone --depth 1 -o upstream -b ${GIT_BRANCH} ${GIT_REPO} apps/frappe \
+RUN --mount=type=secret,id=GH_ACCESS_TOKEN git clone --depth 1 -o upstream -b ${GIT_BRANCH} https://${GH_ACCESS_TOKEN}@${GIT_REPO} apps/frappe \
     && env/bin/pip install --no-cache-dir -e apps/frappe
 
 # Copy scripts and templates

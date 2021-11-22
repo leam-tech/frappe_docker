@@ -36,7 +36,7 @@ WORKDIR /home/frappe/frappe-bench
 RUN mkdir -p apps sites/assets/css sites/assets/frappe /var/www/error_pages
 RUN echo "frappe" > sites/apps.txt
 
-RUN git clone --depth 1 -b ${GIT_BRANCH} ${GIT_REPO} apps/frappe
+RUN --mount=type=secret,id=GH_ACCESS_TOKEN git clone --depth 1 -b ${GIT_BRANCH} https://${GH_ACCESS_TOKEN}@${GIT_REPO} apps/frappe
 RUN cd apps/frappe \
     && yarn \
     && yarn run production \
