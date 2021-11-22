@@ -3,7 +3,7 @@ FROM python:3.7-slim-buster
 # Add non root user without password
 RUN useradd -ms /bin/bash frappe
 
-ARG GIT_REPO=https://github.com/leam-tech/frappe
+ARG GIT_REPO=github.com/leam-tech/frappe
 ARG GIT_BRANCH=version-13-fixes
 ARG ARCH=amd64
 
