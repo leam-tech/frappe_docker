@@ -5,7 +5,7 @@
 ARG PYTHON_VERSION=3.9
 FROM python:${PYTHON_VERSION}-slim-bullseye as builder
 
-ARG GIT_REPO=github.com/leam-tech/frappe
+ARG GIT_REPO=https://github.com/leam-tech/frappe
 ARG GIT_BRANCH=version-13-fixes
 
 # GITHUB TOKEN SETUP
@@ -36,7 +36,7 @@ WORKDIR /home/frappe/frappe-bench
 RUN mkdir -p apps sites/assets/css sites/assets/frappe /var/www/error_pages
 RUN echo "frappe" > sites/apps.txt
 
-RUN --mount=type=secret,id=GH_ACCESS_TOKEN git clone --depth 1 -b ${GIT_BRANCH} https://${GH_ACCESS_TOKEN}@${GIT_REPO} apps/frappe
+RUN git clone --depth 1 -b ${GIT_BRANCH} ${GIT_REPO} apps/frappe
 RUN cd apps/frappe \
     && yarn \
     && yarn run production \
