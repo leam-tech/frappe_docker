@@ -28,6 +28,12 @@ Copy example devcontainer config from `devcontainer-example` to `.devcontainer`
 cp -R devcontainer-example .devcontainer
 ```
 
+Copy example vscode config for devcontainer from `development/vscode-example` to `development/.vscode`. This will setup basic configuration for debugging.
+
+```shell
+cp -R development/vscode-example development/.vscode
+```
+
 ## Use VSCode Remote Containers extension
 
 For most people getting started with Frappe development, the best solution is to use [VSCode Remote - Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
@@ -61,6 +67,8 @@ Run the following commands in the terminal inside the container. You might need 
 bench init --skip-redis-config-generation --frappe-branch version-13 frappe-bench
 cd frappe-bench
 ```
+
+Note: For version 12 use python 3.7 by passing option to `bench init` command, e.g. `bench init --skip-redis-config-generation --frappe-branch version-12 --python python3.7 frappe-bench`
 
 ### Setup hosts
 
@@ -205,6 +213,8 @@ This command starts all processes with the exception of Redis (which is already 
 You can now login with user `Administrator` and the password you choose when creating the site, if you followed this guide's unattended install that password is going to be `admin`.
 
 To debug workers, skip starting worker with honcho and start it with VSCode debugger.
+
+For advance vscode configuration in the devcontainer, change the config files in `development/.vscode`.
 
 ## Developing using the interactive console
 
