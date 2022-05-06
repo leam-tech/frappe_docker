@@ -42,13 +42,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and test
-        uses: docker/bake-action@v1.6.0
+        uses: docker/bake-action@v2.0.0
         with:
           files: docker-bake.hcl
           targets: bench-test
 
       - name: Push
-        uses: docker/bake-action@v1.6.0
+        uses: docker/bake-action@v2.0.0
         if: env.IS_AUTHORIZED_RUN == 'true'
         with:
           files: docker-bake.hcl
@@ -73,7 +73,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build
-        uses: docker/bake-action@v1.6.0
+        uses: docker/bake-action@v2.0.0
         with:
           files: docker-bake.hcl
           targets: frappe-develop-test
@@ -84,7 +84,7 @@ jobs:
 
       - name: Push
         if: env.IS_AUTHORIZED_RUN == 'true'
-        uses: docker/bake-action@v1.6.0
+        uses: docker/bake-action@v2.0.0
         with:
           files: docker-bake.hcl
           targets: frappe-develop
@@ -109,7 +109,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build
-        uses: docker/bake-action@v1.6.0
+        uses: docker/bake-action@v2.0.0
         with:
           files: docker-bake.hcl
           targets: erpnext-develop-test
@@ -120,7 +120,7 @@ jobs:
 
       - name: Push
         if: env.IS_AUTHORIZED_RUN == 'true'
-        uses: docker/bake-action@v1.6.0
+        uses: docker/bake-action@v2.0.0
         with:
           files: docker-bake.hcl
           targets: erpnext-develop
