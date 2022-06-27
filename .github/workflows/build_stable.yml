@@ -62,7 +62,7 @@ jobs:
           VERSION: ${{ matrix.version }}
 
       - name: Build
-        uses: docker/bake-action@v1.6.0
+        uses: docker/bake-action@v2.1.0
         with:
           files: docker-bake.hcl
           targets: frappe-stable-test
@@ -70,7 +70,7 @@ jobs:
 
       - name: Push
         if: env.IS_AUTHORIZED_RUN == 'true'
-        uses: docker/bake-action@v1.6.0
+        uses: docker/bake-action@v2.1.0
         with:
           files: docker-bake.hcl
           targets: frappe-stable
@@ -106,7 +106,7 @@ jobs:
           VERSION: ${{ matrix.version }}
 
       - name: Build
-        uses: docker/bake-action@v1.6.0
+        uses: docker/bake-action@v2.1.0
         with:
           files: docker-bake.hcl
           targets: erpnext-stable-test
@@ -114,7 +114,7 @@ jobs:
 
       - name: Push
         if: env.IS_AUTHORIZED_RUN == 'true'
-        uses: docker/bake-action@v1.6.0
+        uses: docker/bake-action@v2.1.0
         with:
           files: docker-bake.hcl
           targets: erpnext-stable
